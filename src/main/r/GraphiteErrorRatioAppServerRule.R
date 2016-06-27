@@ -6,7 +6,7 @@ expected = 0.1
 state=0
 iacm = -1
 
-source("src/main/R/util.R")
+source("src/main/r/util.R")
 x = reverseServerName(args[2])
 url=paste0(args[1],"render/?from=-",args[3],"minutes&until=now&target=divideSeries(scaleToSeconds(nonNegativeDerivative(servers.",x,".localhost_9000.global_request_processor.http-nio-8444.errorCount),1),scaleToSeconds(nonNegativeDerivative(servers.",x,".localhost_9000.global_request_processor.http-nio-8444.requestCount),1))&format=csv")
 print(url)

@@ -5,7 +5,7 @@ print("Conformance Rule: CPU idle.")
 expected1 = 50
 state1=3
 iacm = -1
-source("src/main/R/util.R")
+source("src/main/r/util.R")
 x = reverseServerName(args[2])
 url=paste0(args[1],"render/?from=-",args[4],"minutes&until=now&target=scaleToSeconds(nonNegativeDerivative(servers.",x,".system.cpu.idle,0),1)&format=csv")
 print(url)

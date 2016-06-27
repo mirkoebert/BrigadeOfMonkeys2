@@ -3,7 +3,7 @@ args <- commandArgs(trailingOnly = TRUE)
 print("Conformance Rule: Response time TTFB.")
 print(args)
 
-source("src/main/R/util.R")
+source("src/main/r/util.R")
 
 
 x = reverseServerName(args[2])

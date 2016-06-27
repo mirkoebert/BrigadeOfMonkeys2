@@ -5,7 +5,7 @@ print("Conformance Rule: Response error ratio.")
 expected = 0.12
 state=0
 
-source("src/main/R/util.R")
+source("src/main/r/util.R")
 x = reverseServerName(args[2])
 url=paste0(args[1],"render/?from=-",args[3],"minutes&until=-1minutes&target=divideSeries(sumSeries(statsite.counts.servers.",x,".Varnish.response.{4,5}*),sumSeries(statsite.counts.servers.",x,".Varnish.response.{1,2,3,4,5}*))&format=csv")
 print(url)

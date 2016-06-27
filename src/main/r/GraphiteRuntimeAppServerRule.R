@@ -8,7 +8,7 @@ args <- commandArgs(trailingOnly = TRUE)
 expected = 200 #ms
 state=0 #gray
 iacm = -1
-source("src/main/R/util.R")
+source("src/main/r/util.R")
 
 print("Conformance Rule: Response time App Server.")
 #print(args)

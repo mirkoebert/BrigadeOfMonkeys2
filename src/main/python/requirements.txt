@@ -1,0 +1,5 @@
+Jinja2==2.8
+matplotlib==1.5.1
+numpy==1.11.0
+pandas==0.18.1
+tox==2.3.1

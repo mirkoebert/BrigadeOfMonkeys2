@@ -10,3 +10,6 @@ You can run single robustness test or a test suite. Finnaly you can calculate a 
 - Graphite
 - Monit
 
+## Configuration
+File: bom.properties
+

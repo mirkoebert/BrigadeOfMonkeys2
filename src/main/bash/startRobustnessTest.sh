@@ -34,7 +34,7 @@ sleep 300
 
 normalizationend=`date  "+%s"`
 log "Analyze phase"
-minutes=`src/main/R/minutesDiffHelper.R $normalizationstart $normalizationend`
+minutes=`$r/minutesDiffHelper.R $normalizationstart $normalizationend`
 for agent in "${analyzeFileItemArray[@]}"
 do
     echo "Analyze: $agent"
@@ -42,13 +42,13 @@ do
     if [[ "$agent" == 'localhost' ]]; then
         echo "Not supported on localhost"
     else
-        src/main/R/GraphiteCPUUsageRule.R   $graphite $agent $cores $minutes $2
+        $r/GraphiteCPUUsageRule.R       $graphite $agent $cores $minutes $2
         if [[ $agent == ib-proxy* ]] || [[ $agent == pa-proxy* ]]; then
-            src/main/R/GraphiteErrorRatioRule.R $graphite $agent        $minutes $2
-            src/main/R/GraphiteRuntimeRule.R    $graphite $agent        $minutes $2
+            $r/GraphiteErrorRatioRule.R $graphite $agent        $minutes $2
+            $r/GraphiteRuntimeRule.R    $graphite $agent        $minutes $2
         else 
-            src/main/R/GraphiteRuntimeAppServerRule.R    $graphite $agent $minutes $2
-            src/main/R/GraphiteErrorRatioAppServerRule.R $graphite $agent $minutes $2
+            $r/GraphiteRuntimeAppServerRule.R    $graphite $agent $minutes $2
+            $r/GraphiteErrorRatioAppServerRule.R $graphite $agent $minutes $2
         fi
     fi
 done
@@ -57,5 +57,5 @@ wait
 log "BoM: Ends"
 
 cat $resultlog >> $logdir/$resultlog &
-cat $eventlog >> $logdir/$eventlog &
+cat $eventlog  >> $logdir/$eventlog  &
 wait

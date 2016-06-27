@@ -3,6 +3,7 @@
 eventlog="bom-event.log"
 resultlog="bom_v2.log"
 logdir="/var/opt/log/jenkins"
+r="src/main/r"
 
 function log {
     loadstart=`date  "+%s"`

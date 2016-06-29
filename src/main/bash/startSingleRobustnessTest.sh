@@ -3,12 +3,12 @@ echo "Read config file: $1"
 source $1
 
 source src/main/bash/setup.sh
-log "BoM: Start Brigade of Monkey: Single Tests"
+log "Start Brigade of Monkey: Single Tests"
 
-echo "BoM: Normal working phase" 
+log "Normal working phase duration: $NormalWorkingPhaseDurationSec sec" 
 sleep $NormalWorkingPhaseDurationSec
 
-echo "Read server names from file: $agentsi4monkeys $agents4analysis "
+log "Read server names from file: $agentsi4monkeys $agents4analysis "
 fileItemString=$(cat $agentsi4monkeys |tr "\n" " ")
 fileItemArray=($fileItemString)
 analyzeFileItemString=$(cat $agents4analysis |tr "\n" " ")
@@ -29,7 +29,7 @@ done
 wait
 
 normalizationstart=`date  "+%s"`
-log "Normaization phase"
+log "Normaization phase durtion: $NormaizationPhaseDurationSec sec"
 sleep $NormaizationPhaseDurationSec
 
 normalizationend=`date  "+%s"`
@@ -37,10 +37,10 @@ log "Analyze phase"
 minutes=`$r/minutesDiffHelper.R $normalizationstart $normalizationend`
 for agent in "${analyzeFileItemArray[@]}"
 do
-    echo "Analyze: $agent"
+    log "Analyze: $agent"
     cores=`(ssh $ssh$agent 'bash -s' < src/main/bash/getCores.sh)`
     if [[ "$agent" == 'localhost' ]]; then
-        echo "Not supported on localhost"
+        log "Not supported on localhost"
     else
         $r/GraphiteCPUUsageRule.R       $graphite $agent $cores $minutes $2
         if [[ $agent == ib-proxy* ]] || [[ $agent == pa-proxy* ]]; then
@@ -54,7 +54,7 @@ do
 done
 wait
 
-log "BoM: Ends"
+log "Finished"
 
 cat $resultlog >> $logdir/$resultlog &
 cat $eventlog  >> $logdir/$eventlog  &

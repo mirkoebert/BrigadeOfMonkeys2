@@ -1,25 +1,25 @@
 #!/bin/bash
+echo "Read config file: $1" 
+source $1
+
 source src/main/bash/setup.sh
 log "BoM: Start Brigade of Monkey: Single Tests"
 
 echo "BoM: Normal working phase" 
 sleep 300
 
-echo "Read server names from file: server_names.txt"
-fileItemString=$(cat disruption_agent_names.txt |tr "\n" " ")
+echo "Read server names from file: $agentsi4monkeys $agents4analysis "
+fileItemString=$(cat $agentsi4monkeys |tr "\n" " ")
 fileItemArray=($fileItemString)
-analyzeFileItemString=$(cat analyze_agent_names.txt |tr "\n" " ")
+analyzeFileItemString=$(cat $agents4analysis |tr "\n" " ")
 analyzeFileItemArray=($analyzeFileItemString)
-
-echo "Read config file: $1" 
-source $1
 
 log "Disturbance phase target micro service: $2" 
 for agent in "${fileItemArray[@]}"
 do
     echo "Run Monkey on: $i"
     if [[ "$agent" == 'localhost' ]]; then
-        src/main/bash/chaosmonkey.sh
+        src/main/bash/burnCPUMonkey.sh
      else
         scp disruption_services.txt $ssh$agent:/tmp 
         (ssh $ssh$agent 'bash -s' < src/main/bash/serviceOffOnMonkey.sh)&

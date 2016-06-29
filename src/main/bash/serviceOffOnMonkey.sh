@@ -19,7 +19,7 @@ echo "Service $fileItemArray]"
 if [[ "$os" == 'Linux' ]]; then
     switchOff $fileItemArray
     echo "Wait some time"
-    sleep 300
+    sleep $1
     switchOn $fileItemArray
 else
     logger -s  "BoM: Error: Unsupported platform: $os"

@@ -23,5 +23,5 @@ do
     yes > /dev/null &
 done  
 echo "Wait some time"
-sleep 300
+sleep $1
 killall yes

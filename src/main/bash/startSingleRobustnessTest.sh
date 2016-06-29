@@ -6,7 +6,7 @@ source src/main/bash/setup.sh
 log "BoM: Start Brigade of Monkey: Single Tests"
 
 echo "BoM: Normal working phase" 
-sleep 300
+sleep $NormalWorkingPhaseDurationSec
 
 echo "Read server names from file: $agentsi4monkeys $agents4analysis "
 fileItemString=$(cat $agentsi4monkeys |tr "\n" " ")
@@ -19,10 +19,10 @@ for agent in "${fileItemArray[@]}"
 do
     echo "Run Monkey on: $i"
     if [[ "$agent" == 'localhost' ]]; then
-        src/main/bash/burnCPUMonkey.sh
+        src/main/bash/burnCPUMonkey.sh $DisturbancePhaseDurationSec
      else
         scp disruption_services.txt $ssh$agent:/tmp 
-        (ssh $ssh$agent 'bash -s' < src/main/bash/serviceOffOnMonkey.sh)&
+        (ssh $ssh$agent 'bash -s' < src/main/bash/serviceOffOnMonkey.sh $DisturbancePhaseDurationSec )&
         echo "Link: $displayServerLinkPre$agent$displayServerLinkPost"
      fi
 done
@@ -30,7 +30,7 @@ wait
 
 normalizationstart=`date  "+%s"`
 log "Normaization phase"
-sleep 300
+sleep $NormaizationPhaseDurationSec
 
 normalizationend=`date  "+%s"`
 log "Analyze phase"

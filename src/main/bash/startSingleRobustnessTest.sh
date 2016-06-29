@@ -23,7 +23,7 @@ do
      else
         scp disruption_services.txt $ssh$agent:/tmp 
         (ssh $ssh$agent 'bash -s' < src/main/bash/serviceOffOnMonkey.sh)&
-        src/main/bash/displayServerLink.sh $displayServerLinkPre $agent $displayServerLinkPost
+        echo "Link: $displayServerLinkPre$agent$displayServerLinkPost"
      fi
 done
 wait

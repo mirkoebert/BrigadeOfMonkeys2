@@ -3,11 +3,13 @@
 
 
 logger -p user.info -s "Burn CPU Monkey"
+
+trap "killall yes; exit" SIGHUP SIGINT SIGTERM
+
 os=`uname`
 echo "Execute on $os"
 if [[ "$os" == 'Linux' ]]; then
     core=`nproc`
-
 elif [[ "$os" == 'Darwin' ]]; then
     core=`sysctl -n hw.ncpu`
 else

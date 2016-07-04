@@ -19,12 +19,20 @@ for agent in "${fileItemArray[@]}"
 do
     echo "Run Monkey on: $i"
     if [[ "$agent" == 'localhost' ]]; then
-        src/main/bash/burnCPUMonkey.sh $DisturbancePhaseDurationSec
-     else
-        scp disruption_services.txt $ssh$agent:/tmp 
-        (ssh $ssh$agent 'bash -s' < src/main/bash/serviceOffOnMonkey.sh $DisturbancePhaseDurationSec )&
+        src/main/bash/advancedMonkey.sh $DisturbancePhaseDurationSec
+    else
+        #scp disruption_services.txt $ssh$agent:/tmp
+        (ssh $ssh$agent 'bash -s' < src/main/bash/advancedMonkey.sh $DisturbancePhaseDurationSec )&
         echo "Link: $displayServerLinkPre$agent$displayServerLinkPost"
-     fi
+    fi
+    #echo "Run Monkey on: $i"
+    #if [[ "$agent" == 'localhost' ]]; then
+    #    src/main/bash/burnCPUMonkey.sh $DisturbancePhaseDurationSec
+    #else
+    #    scp disruption_services.txt $ssh$agent:/tmp 
+    #    (ssh $ssh$agent 'bash -s' < src/main/bash/serviceOffOnMonkey.sh $DisturbancePhaseDurationSec )&
+    #    echo "Link: $displayServerLinkPre$agent$displayServerLinkPost"
+    fi
 done
 wait
 

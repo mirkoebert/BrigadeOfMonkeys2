@@ -37,8 +37,14 @@ burnCPU(){
 
 }
 
-cat MonitMock.txt | grep tomcat > /dev/null
-t=$?
+# for testing only
+#cat MonitMock.txt | grep tomcat > /dev/null
+t=-1
+if [ -e /usr/bin/monit ] 
+then
+    sudo /usr/bin/monit summary | grep tomcat > /dev/null
+    t=$?
+fi
 
 
 

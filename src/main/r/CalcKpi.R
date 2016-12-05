@@ -12,22 +12,22 @@ if(is.na(args[2])){
 }
 
 bom = read.csv(args[1], header=F)
-rob=subset(bom, bom$V2=="Robustness")
-
+#rob=subset(bom, bom$V2=="Robustness")
+rob=bom
 if(!is.na(args[2])){
   # calc robustness kpi for one given micro service
-  rob=subset(rob, rob$V9==args[2])
+  rob=subset(rob, rob$V8==args[2])
 }
 
-rob$V3=strptime(rob$V3,"%F %T")
-robToday=subset(rob,rob$V3 > todayDate)
+rob$V3=strptime(rob$V1,"%F %T")
+robToday=subset(rob,rob$V1 > todayDate)
 
 kpiToday = 0
 color="grey"
 
 robTestCountToday = dim(robToday)[1]
 if(robTestCountToday > 0){
-  kpiToday = round(mean(robToday$V1),2)
+  kpiToday = round(mean(robToday$V3),2)
   if(kpiToday > 2.5){
     color="green"
   } else if(kpiToday > 1.5){
